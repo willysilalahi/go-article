@@ -8,8 +8,8 @@ import (
 
 type Repository interface {
 	GetAll() ([]model.Post, error)
-	// GetById(id int) (model.Post, error)
-	// Create(post model.Post) (model.Post, error)
+	GetById(id int) (model.Post, error)
+	Create(post model.Post) (model.Post, error)
 	// Update(id int, post model.Post) (model.Post, error)
 	// Delete(id int) error
 }
@@ -24,6 +24,16 @@ func NewRepository(db *gorm.DB) *repository {
 
 func (r *repository) GetAll() ([]model.Post, error) {
 	var posts []model.Post
-	err := r.db.Preload("Admin").Preload("Tags").Preload("Comments").Find(&posts).Error
+	err := r.db.Preload("Admin").Preload("Tags").Preload("Comments.Admin").Find(&posts).Error
 	return posts, err
+}
+
+func (r *repository) GetById(id int) (model.Post, error) {
+	var post model.Post
+	err := r.db.Preload("Admin").Preload("Tags").Preload("Comments.Admin").First(&post, id).Error
+	return post, err
+}
+
+func (r *repository) Create(post model.Post) (model.Post, error) {
+
 }

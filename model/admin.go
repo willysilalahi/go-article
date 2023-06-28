@@ -1,8 +1,8 @@
 package model
 
 type Admin struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	ID    int
+	Name  string
+	Email string
 	Posts []Post
 }

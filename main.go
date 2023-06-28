@@ -12,6 +12,19 @@ import (
 )
 
 func main() {
+	/*
+		Your Task
+		- Get All Post*
+		- Get Post By Id*
+		- Create Post
+		- Update Post
+		- Delete Post
+		- Get Comments By Post ID
+		- Create Comment
+		- Edit Comment
+		- Delete Comment
+	*/
+
 	dsn := "root:@tcp(127.0.0.1:3306)/go_article?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
@@ -27,7 +40,8 @@ func main() {
 
 	router := gin.Default()
 
-	router.GET("/post", postHandler.GetAllPostHandler)
+	router.GET("/article", postHandler.GetAllPostHandler)
+	router.GET("/article/:id", postHandler.GetSinglePostHandler)
 
 	router.Run()
 }
